@@ -13,7 +13,7 @@ PREFIX_WHITELIST = [
 
 
 class Command:
-    def __init__(self, name: str, permission: str, message: Optional[str] = None):
+    def __init__(self, name: str, message: Optional[str] = None, permission: Optional[str] = None) -> None:
         self.name = name
         self.permission = permission
         self._message = message
@@ -22,7 +22,7 @@ class Command:
     def __hash__(self) -> int:
         return hash(self.name)
 
-    def handle(self, permission: str, args: List[str]) -> None:
+    def handle(self, args: List[str], permission: Union[str, None]) -> None:
         if self.permission is not None and self.permission != permission:
             raise ValueError("Invalid permission for command")
         if args:
@@ -31,7 +31,8 @@ class Command:
     def to_dict(self) -> dict:
         return {
             'name': self.name,
-            'message': self._message
+            'message': self._message,
+            'permission': self.permission,
         }
 
 
@@ -60,7 +61,7 @@ class CommandManager:
     def get(self, command_name: str) -> Union[Command, None]:
         return self._commands.get(command_name)
 
-    def store(self, command_name: str, message: str) -> None:
+    def store(self, command_name: str, message: str, permission: Optional[str] = None) -> None:
         white_listed = any(
             message.startswith(prefix)
             for prefix in PREFIX_WHITELIST
