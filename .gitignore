@@ -138,7 +138,6 @@ dmypy.json
 cython_debug/
 
 
-data/*
 .oauth_token
 NOTES.md
 .vscode/settings.json

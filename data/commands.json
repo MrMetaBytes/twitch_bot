@@ -1,0 +1,12 @@
+[
+    {
+        "message": "Hello World!",
+        "name": "test",
+        "permission": null
+    },
+    {
+        "message": "You best be going to checkout out https://twitch.tv/{0} , they good people!",
+        "name": "so",
+        "permission": "mod"
+    }
+]
